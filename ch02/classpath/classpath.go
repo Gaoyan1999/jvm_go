@@ -50,7 +50,7 @@ func (self * ClassPath) parseBootAndExtClasspath(jreOption string) {
 
 func (self* ClassPath) parseUserClasspath(option string) {
  if option == "" {
- 	option = "."
+	option = "."
  }
  self.userClassPath = newEntry(option)
 }
