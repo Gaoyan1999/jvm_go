@@ -25,6 +25,7 @@ func (self * ZipEntry) readClass(className string)([]byte, Entry, error){
 		return nil,nil ,err
 	}
 	defer reader.Close()
+	// jar 包下所有文件
 	for _,f := range reader.File {
 		// 遍历ZIP压缩包里的文件，看能否找到class文件
 		if f.Name == className {
