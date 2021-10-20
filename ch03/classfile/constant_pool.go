@@ -19,8 +19,7 @@ func readConstantPool(reader *ClassReader) ConstantPool {
 		  i++ // 占2位
 		  }
 	  }
-
-
+	  return cp
 }
 
 func readConstantInfo(reader *ClassReader, cp []ConstantInfo) ConstantInfo {
