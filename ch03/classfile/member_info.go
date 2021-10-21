@@ -27,10 +27,6 @@ func readMember(reader *ClassReader,cp ConstantPool)*MemberInfo  {
 
 	}
 }
-func readAttributes(reader *ClassReader,cp ConstantPool)[]AttributeInfo{
-}
-
-
 func (self *MemberInfo)AccessFlags() uint16 {
 	return self.accessFlags
 }
