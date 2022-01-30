@@ -21,6 +21,23 @@ type ClassFile struct {
 	attributes   []AttributeInfo
 }
 
+func (cf *ClassFile) MajorVersion() uint16 {
+	return cf.majorVersion
+}
+func (cf *ClassFile) ClassName() string {
+	return cf.constantPool.getClassName(cf.thisClass)
+}
+func (cf *ClassFile) superClassName() string {
+	return cf.constantPool.getClassName(cf.superClass)
+}
+func (cf *ClassFile) InterfaceNames() []string {
+	interfaceNames := make([]string, len(cf.interfaces))
+	for i, indexInPool := range cf.interfaces {
+		interfaceNames[i] = cf.constantPool.getClassName(indexInPool)
+	}
+	return interfaceNames
+}
+
 func Parse(classData []byte) (cf *ClassFile, err error) {
 	defer func() {
 		if r := recover(); r != nil {
