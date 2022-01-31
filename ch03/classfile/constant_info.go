@@ -26,7 +26,7 @@ func readConstantInfo(reader *ClassReader, pool ConstantPool) ConstantInfo {
 	return newConstantInfo(tag, pool)
 }
 
-//  return a type of constant info according to the tag
+// return a type of constant info according to the tag
 func newConstantInfo(tag uint8, pool ConstantPool) ConstantInfo {
 	switch tag {
 	case CONSTANT_Class:
