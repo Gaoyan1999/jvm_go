@@ -16,8 +16,8 @@ type ClassFile struct {
 	thisClass    uint16
 	superClass   uint16
 	interfaces   []uint16
-	fields       []MemberInfo // ues *
-	methods      []MemberInfo
+	fields       []MemberInfo // ues * in book
+	methods      []MemberInfo // ues * in book
 	attributes   []AttributeInfo
 }
 
@@ -28,7 +28,10 @@ func (cf *ClassFile) ClassName() string {
 	return cf.constantPool.getClassName(cf.thisClass)
 }
 func (cf *ClassFile) superClassName() string {
-	return cf.constantPool.getClassName(cf.superClass)
+	if cf.superClass > 0 {
+		return cf.constantPool.getClassName(cf.superClass)
+	}
+	return ""
 }
 func (cf *ClassFile) InterfaceNames() []string {
 	interfaceNames := make([]string, len(cf.interfaces))
@@ -58,9 +61,11 @@ func Parse(classData []byte) (cf *ClassFile, err error) {
 
 func (cf *ClassFile) read(reader *ClassReader) {
 	// parse class file
-	//	self.readAndCheckMagic(reader) // 见3.2.3
-	//	self.readAndCheckVersion(reader) // 见3.2.4
+	cf.readAndCheckMagic(reader)
+	cf.readAndCheckVersion(reader)
 	//	self.constantPool = readConstantPool(reader) // 见3.3
+	//TODO: parse access flag.
+
 	//	self.accessFlags = reader.readUint16()
 	//	self.thisClass = reader.readUint16()
 	//	self.superClass = reader.readUint16()
@@ -69,4 +74,22 @@ func (cf *ClassFile) read(reader *ClassReader) {
 	//	self.methods = readMembers(reader, self.constantPool)
 	//	self.attributes = readAttributes(reader, self.constantPool) //见3.4
 
+}
+func (cf *ClassFile) readAndCheckMagic(reader *ClassReader) {
+	magicNumber := reader.readUint32()
+	if magicNumber != 0xCAFEBABE {
+		panic("java.lang.ClassFormatError: magic number error.")
+	}
+}
+
+func (cf *ClassFile) readAndCheckVersion(reader *ClassReader) {
+	cf.majorVersion = reader.readUint16()
+	cf.minorVersion = reader.readUint16()
+	// support JDK 8  major version [45 - 52]
+	if cf.majorVersion == 45 {
+		return
+	} else if cf.majorVersion >= 46 && cf.majorVersion <=52 && cf.minorVersion == 0 {
+		return
+	}
+	panic("NO SUPPORT: Version other than JDK 8 are not supported at present.")
 }
