@@ -42,7 +42,15 @@ func newConstantInfo(tag uint8, pool ConstantPool) ConstantInfo {
 	case CONSTANT_Double:
 		return &ConstantDoubleInfo{}
 	case CONSTANT_String:
-		return &ConstantStringInfo{ConstantPool:pool}
+		return &ConstantStringInfo{ConstantPool: pool}
+	case CONSTANT_NameAndType:
+		return &ConstantNameAndTypeInfo{}
+	case CONSTANT_Fieldref:
+		return &ConstantFieldrefInfo{ConstantMemberRefInfo{ConstantPool: pool}}
+	case CONSTANT_Methodref:
+		return &ConstantMethodrefInfo{ConstantMemberRefInfo{ConstantPool: pool}}
+	case CONSTANT_InterfaceMethodref:
+		return &ConstantMethodrefInfo{ConstantMemberRefInfo{ConstantPool: pool}}
 	default:
 		panic("java.lang.ClassFormatError: invalid constant tag.")
 	}

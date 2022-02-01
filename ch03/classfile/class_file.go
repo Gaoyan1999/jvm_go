@@ -63,15 +63,13 @@ func (cf *ClassFile) read(reader *ClassReader) {
 	// parse class file
 	cf.readAndCheckMagic(reader)
 	cf.readAndCheckVersion(reader)
-	//	self.constantPool = readConstantPool(reader) // 见3.3
-	//TODO: parse access flag.
-
-	//	self.accessFlags = reader.readUint16()
-	//	self.thisClass = reader.readUint16()
-	//	self.superClass = reader.readUint16()
-	//	self.interfaces = reader.readUint16s()
-	//	self.fields = readMembers(reader, self.constantPool) // 见3.2.8
-	//	self.methods = readMembers(reader, self.constantPool)
+	cf.constantPool = readConstantPool(reader)
+	cf.accessFlags = reader.readUint16()
+	cf.thisClass = reader.readUint16()
+	cf.superClass = reader.readUint16()
+	cf.interfaces = reader.readUnit16s()
+	cf.fields = readMembers(reader,cf.constantPool)
+	cf.methods = readMembers(reader,cf.constantPool)
 	//	self.attributes = readAttributes(reader, self.constantPool) //见3.4
 
 }
@@ -88,7 +86,7 @@ func (cf *ClassFile) readAndCheckVersion(reader *ClassReader) {
 	// support JDK 8  major version [45 - 52]
 	if cf.majorVersion == 45 {
 		return
-	} else if cf.majorVersion >= 46 && cf.majorVersion <=52 && cf.minorVersion == 0 {
+	} else if cf.majorVersion >= 46 && cf.majorVersion <= 52 && cf.minorVersion == 0 {
 		return
 	}
 	panic("NO SUPPORT: Version other than JDK 8 are not supported at present.")
