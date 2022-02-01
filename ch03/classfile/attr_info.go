@@ -1,0 +1,52 @@
+package classfile
+
+const (
+	Code               = "Code"
+	ConstantValue      = "ConstantValue"
+	Deprecated         = "Deprecated"
+	Exceptions         = "Exceptions"
+	LineNumberTable    = "LineNumberTable"
+	LocalVariableTable = "LocalVariableTable"
+	SourceFile         = "SourceFile"
+	Synthetic          = "Synthetic"
+)
+
+/**
+attribute_info {
+   u2 attribute_name_index;
+   u4 attribute_length;
+   u1 info[attribute_length];
+}
+*/
+
+type AttributeInfo interface {
+	read(reader *ClassReader)
+}
+
+func readAttributes(reader *ClassReader, pool ConstantPool) []AttributeInfo {
+	count := reader.readUint16()
+	infos := make([]AttributeInfo, count)
+	for i := range infos {
+		infos[i] = readAttribute(reader, pool)
+	}
+	return infos
+}
+func readAttribute(reader *ClassReader, pool ConstantPool) AttributeInfo {
+	nameIndex := reader.readUint16()
+	name := pool.getUtf8(nameIndex)
+	len := reader.readUint32()
+	attrInfo := newAttributeInfo(name,len)
+	attrInfo.read(reader)
+	return attrInfo
+}
+
+func newAttributeInfo(name string,len uint32) AttributeInfo {
+	switch name {
+	case Code:
+		return &CodeAttribute{}
+	default:
+		return &UnparsedAttribute{name, len, nil}
+
+	}
+
+}
