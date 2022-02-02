@@ -35,15 +35,22 @@ func readAttribute(reader *ClassReader, pool ConstantPool) AttributeInfo {
 	nameIndex := reader.readUint16()
 	name := pool.getUtf8(nameIndex)
 	len := reader.readUint32()
-	attrInfo := newAttributeInfo(name,len)
+	attrInfo := newAttributeInfo(name, len, pool)
 	attrInfo.read(reader)
 	return attrInfo
 }
 
-func newAttributeInfo(name string,len uint32) AttributeInfo {
+func newAttributeInfo(name string, len uint32, cp ConstantPool) AttributeInfo {
 	switch name {
 	case Code:
 		return &CodeAttribute{}
+	case Deprecated:
+		return &DeprecatedAttribute{}
+	case Synthetic:
+		return &SyntheticAttribute{}
+	case SourceFile:
+		return &SourceFileAttribute{ConstantPool: cp}
+
 	default:
 		return &UnparsedAttribute{name, len, nil}
 
