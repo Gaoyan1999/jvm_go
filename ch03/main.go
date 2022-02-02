@@ -24,7 +24,6 @@ func startJVM(cmd *Cmd) {
 	className := strings.Replace(cmd.class, ".", "/", -1)
 	cf := loadClass(className, cp)
 	classfile.PrintClassInfo(cf)
-	fmt.Printf("class data:%v\n", cf)
 }
 
 func loadClass(className string, cp *classpath.ClassPath) *classfile.ClassFile {
@@ -32,9 +31,9 @@ func loadClass(className string, cp *classpath.ClassPath) *classfile.ClassFile {
 	if err != nil {
 		panic(err)
 	}
-	cf, err := classfile.Parse(classData)
-	if err != nil {
-		panic(err)
+	cf, err2 := classfile.Parse(classData)
+	if err2 != nil {
+		panic(err2)
 	}
 	return cf
 }

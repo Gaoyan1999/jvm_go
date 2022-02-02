@@ -58,11 +58,10 @@ func Parse(classData []byte) (cf *ClassFile, err error) {
 			}
 		}
 	}()
-	reader := new(ClassReader)
-	*reader = ClassReader{data: classData}
-	file := &ClassFile{}
-	file.read(reader)
-	return file, nil
+	cr := &ClassReader{classData}
+	cf = &ClassFile{}
+	cf.read(cr)
+	return cf, nil
 
 }
 
@@ -88,8 +87,8 @@ func (cf *ClassFile) readAndCheckMagic(reader *ClassReader) {
 }
 
 func (cf *ClassFile) readAndCheckVersion(reader *ClassReader) {
-	cf.majorVersion = reader.readUint16()
 	cf.minorVersion = reader.readUint16()
+	cf.majorVersion = reader.readUint16()
 	// support JDK 8  major version [45 - 52]
 	if cf.majorVersion == 45 {
 		return

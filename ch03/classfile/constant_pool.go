@@ -1,18 +1,16 @@
 package classfile
 
-import "fmt"
-
 type ConstantPool []ConstantInfo
 
 func readConstantPool(reader *ClassReader) ConstantPool {
 	count := int(reader.readUint16())
 	pool := make([]ConstantInfo, count)
 	// len: count-1
-	for i := 1; i < count-1; i++ {
+	for i := 1; i < count; i++ {
 		pool[i] = readConstantInfo(reader, pool)
-		if pool[i].(*ConstantLongInfo) != nil || pool[i].(*ConstantDoubleInfo) != nil {
-			fmt.Printf("DEBUG--> pool: %v \n", pool[i])
-			i++
+		switch pool[i].(type) {
+		case *ConstantLongInfo, *ConstantDoubleInfo:
+			i++ // 占两个位置
 		}
 	}
 	return pool
