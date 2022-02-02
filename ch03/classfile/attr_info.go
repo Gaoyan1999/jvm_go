@@ -44,12 +44,20 @@ func newAttributeInfo(name string, len uint32, cp ConstantPool) AttributeInfo {
 	switch name {
 	case Code:
 		return &CodeAttribute{ConstantPool: cp}
+	case ConstantValue:
+		return &ConstantValueAttribute{}
 	case Deprecated:
 		return &DeprecatedAttribute{}
 	case Synthetic:
 		return &SyntheticAttribute{}
 	case SourceFile:
 		return &SourceFileAttribute{ConstantPool: cp}
+	case Exceptions:
+		return &ExceptionsAttribute{}
+	case LineNumberTable:
+		return &LineNumberTableAttribute{}
+	case LocalVariableTable:
+		return &LocalVariableAttribute{}
 
 	default:
 		return &UnparsedAttribute{name, len, nil}

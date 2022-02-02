@@ -6,6 +6,7 @@ import (
 	"jvmgo/ch03/classpath"
 	"strings"
 )
+
 func main() {
 	cmd := parseCmd()
 	if cmd.versionFlag {
@@ -19,14 +20,21 @@ func main() {
 
 func startJVM(cmd *Cmd) {
 	cp := classpath.Parse(cmd.XjreOption, cmd.cpOption)
-	fmt.Printf("classpath: %v class:%v args:%v\n",cp,cmd.class,cmd.args)
 	// // If n < 0, there is no limit on the number of replacements.
 	className := strings.Replace(cmd.class, ".", "/", -1)
-	data, _, err := cp.ReadClass(className)
+	cf := loadClass(className, cp)
+	classfile.PrintClassInfo(cf)
+	fmt.Printf("class data:%v\n", cf)
+}
+
+func loadClass(className string, cp *classpath.ClassPath) *classfile.ClassFile {
+	classData, _, err := cp.ReadClass(className)
 	if err != nil {
-		fmt.Printf("Could not find or load main class %s\n", cmd.class)
-		return
+		panic(err)
 	}
-	classfile.Parse(data)
-	fmt.Printf("class data:%v\n", data)
+	cf, err := classfile.Parse(classData)
+	if err != nil {
+		panic(err)
+	}
+	return cf
 }

@@ -9,17 +9,17 @@ type MemberInfo struct {
 	attributes      []AttributeInfo
 }
 
-func readMembers(reader *ClassReader, cp ConstantPool) []MemberInfo {
+func readMembers(reader *ClassReader, cp ConstantPool) []*MemberInfo {
 	count := reader.readUint16()
-	members := make([]MemberInfo, count)
+	members := make([]*MemberInfo, count)
 	for i := range members {
 		members[i] = readMember(reader, cp)
 	}
 	return members
 }
 
-func readMember(reader *ClassReader, cp ConstantPool) MemberInfo {
-	return MemberInfo{
+func readMember(reader *ClassReader, cp ConstantPool) *MemberInfo {
+	return &MemberInfo{
 		cp:              cp,
 		accessFlags:     reader.readUint16(),
 		nameIndex:       reader.readUint16(),

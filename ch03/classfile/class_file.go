@@ -16,18 +16,25 @@ type ClassFile struct {
 	thisClass    uint16
 	superClass   uint16
 	interfaces   []uint16
-	fields       []MemberInfo // ues * in book
-	methods      []MemberInfo // ues * in book
+	fields       []*MemberInfo
+	methods      []*MemberInfo
 	attributes   []AttributeInfo
 }
 
 func (cf *ClassFile) MajorVersion() uint16 {
 	return cf.majorVersion
 }
+func (cf *ClassFile) MinorVersion() uint16 {
+	return cf.minorVersion
+}
+func (cf *ClassFile) AccessFlags() uint16 {
+	return cf.accessFlags
+}
+
 func (cf *ClassFile) ClassName() string {
 	return cf.constantPool.getClassName(cf.thisClass)
 }
-func (cf *ClassFile) superClassName() string {
+func (cf *ClassFile) SuperClassName() string {
 	if cf.superClass > 0 {
 		return cf.constantPool.getClassName(cf.superClass)
 	}
@@ -67,7 +74,7 @@ func (cf *ClassFile) read(reader *ClassReader) {
 	cf.accessFlags = reader.readUint16()
 	cf.thisClass = reader.readUint16()
 	cf.superClass = reader.readUint16()
-	cf.interfaces = reader.readUnit16s()
+	cf.interfaces = reader.readUint16s()
 	cf.fields = readMembers(reader, cf.constantPool)
 	cf.methods = readMembers(reader, cf.constantPool)
 	cf.attributes = readAttributes(reader, cf.constantPool)
@@ -90,4 +97,21 @@ func (cf *ClassFile) readAndCheckVersion(reader *ClassReader) {
 		return
 	}
 	panic("NO SUPPORT: Version other than JDK 8 are not supported at present.")
+}
+
+func PrintClassInfo(cf *ClassFile) {
+	fmt.Printf("version: %v.%v\n", cf.MajorVersion(), cf.MinorVersion())
+	fmt.Printf("constants count: %v\n", len(cf.constantPool))
+	fmt.Printf("access flags: 0x%x\n", cf.AccessFlags())
+	fmt.Printf("this class: %v\n", cf.ClassName())
+	fmt.Printf("super class: %v\n", cf.SuperClassName())
+	fmt.Printf("interfaces: %v\n", cf.InterfaceNames())
+	fmt.Printf("fields count: %v\n", len(cf.fields))
+	for _, f := range cf.fields {
+		fmt.Printf("  %s\n", f.Name())
+	}
+	fmt.Printf("methods count: %v\n", len(cf.methods))
+	for _, m := range cf.methods {
+		fmt.Printf("  %s\n", m.Name())
+	}
 }
