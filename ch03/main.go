@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"jvmgo/ch02/classpath"
+	"jvmgo/ch03/classfile"
+	"jvmgo/ch03/classpath"
 	"strings"
 )
 func main() {
@@ -26,5 +27,6 @@ func startJVM(cmd *Cmd) {
 		fmt.Printf("Could not find or load main class %s\n", cmd.class)
 		return
 	}
+	classfile.Parse(data)
 	fmt.Printf("class data:%v\n", data)
 }

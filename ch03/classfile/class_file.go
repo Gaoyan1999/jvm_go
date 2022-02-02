@@ -68,9 +68,9 @@ func (cf *ClassFile) read(reader *ClassReader) {
 	cf.thisClass = reader.readUint16()
 	cf.superClass = reader.readUint16()
 	cf.interfaces = reader.readUnit16s()
-	cf.fields = readMembers(reader,cf.constantPool)
-	cf.methods = readMembers(reader,cf.constantPool)
-	//	self.attributes = readAttributes(reader, self.constantPool) //见3.4
+	cf.fields = readMembers(reader, cf.constantPool)
+	cf.methods = readMembers(reader, cf.constantPool)
+	cf.attributes = readAttributes(reader, cf.constantPool)
 
 }
 func (cf *ClassFile) readAndCheckMagic(reader *ClassReader) {
