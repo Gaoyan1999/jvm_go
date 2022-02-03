@@ -57,3 +57,15 @@ func (stack *OperandStack) PushDouble(val float64) {
 func (stack *OperandStack) PopDouble() float64 {
 	return math.Float64frombits(uint64(stack.PopLong()))
 }
+
+func (stack *OperandStack) PushRef(ref *Object) {
+	stack.slots[stack.size].ref = ref
+	stack.size++
+}
+
+func (stack *OperandStack) PopRef() *Object {
+	stack.size--
+	res := stack.slots[stack.size].ref
+	stack.slots[stack.size].ref = nil
+	return res
+}
