@@ -14,12 +14,13 @@ and a reference to the run-time constant pool (§2.5.5) of the class of the curr
 */
 type Frame struct {
 	LocalVars
-	// operandStack
+	*OperandStack
 	next *Frame
 }
 
 func newFrame(maxLocal uint, maxStack uint) *Frame {
 	return &Frame{
 		LocalVars: newLocalVars(maxLocal),
+		OperandStack: newOperandStack(maxStack),
 	}
 }
