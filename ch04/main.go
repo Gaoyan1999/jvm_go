@@ -2,9 +2,7 @@ package main
 
 import (
 	"fmt"
-	"jvmgo/ch03/classfile"
-	"jvmgo/ch03/classpath"
-	"strings"
+	"jvmgo/ch04/rtda"
 )
 
 func main() {
@@ -19,21 +17,41 @@ func main() {
 }
 
 func startJVM(cmd *Cmd) {
-	cp := classpath.Parse(cmd.XjreOption, cmd.cpOption)
-	// // If n < 0, there is no limit on the number of replacements.
-	className := strings.Replace(cmd.class, ".", "/", -1)
-	cf := loadClass(className, cp)
-	classfile.PrintClassInfo(cf)
+	frame := rtda.NewFrame(100,100)
+	testLocalVars(frame.LocalVars)
+	testOperandStack(frame.OperandStack)
 }
 
-func loadClass(className string, cp *classpath.ClassPath) *classfile.ClassFile {
-	classData, _, err := cp.ReadClass(className)
-	if err != nil {
-		panic(err)
-	}
-	cf, err2 := classfile.Parse(classData)
-	if err2 != nil {
-		panic(err2)
-	}
-	return cf
+func testLocalVars(vars rtda.LocalVars)  {
+	vars.SetInt(0, 100)
+	vars.SetInt(1, -100)
+	vars.SetLong(2, 2997924580)
+	vars.SetLong(4, -2997924580)
+	vars.SetFloat(6, 3.1415926)
+	vars.SetDouble(7, 2.71828182845)
+	vars.SetRef(9, nil)
+	println(vars.GetInt(0))
+	println(vars.GetInt(1))
+	println(vars.GetLong(2))
+	println(vars.GetLong(4))
+	println(vars.GetFloat(6))
+	println(vars.GetDouble(7))
+	println(vars.GetRef(9))
+}
+
+func testOperandStack(ops *rtda.OperandStack) {
+	ops.PushInt(100)
+	ops.PushInt(-100)
+	ops.PushLong(2997924580)
+	ops.PushLong(-2997924580)
+	ops.PushFloat(3.1415926)
+	ops.PushDouble(2.71828182845)
+	ops.PushRef(nil)
+	println(ops.PopRef())
+	println(ops.PopDouble())
+	println(ops.PopFloat())
+	println(ops.PopLong())
+	println(ops.PopLong())
+	println(ops.PopInt())
+	println(ops.PopInt())
 }

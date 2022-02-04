@@ -1,6 +1,8 @@
 package rtda
 
-import "math"
+import (
+	"math"
+)
 
 /**
 A single local variable can hold a value of type boolean, byte,
@@ -39,8 +41,11 @@ func (vars LocalVars) SetLong(index uint, val int64) {
 }
 
 func (vars LocalVars) GetLong(index uint) int64 {
-	low := vars[index].num //TODO need to test
-	high := vars[index+1].num
+	// 这里先转换成了 uint32 是为了解决溢出问题
+	// 如果set long 的后八位为八个1，被存入到int中也就是low变量，直接将low变量变为int64，会将第一位视作+-信息
+	// 所以要先将其转换为uint32类型
+	low := uint32(vars[index].num)
+	high := uint32(vars[index+1].num)
 	return int64(high)<<32 | int64(low)
 }
 

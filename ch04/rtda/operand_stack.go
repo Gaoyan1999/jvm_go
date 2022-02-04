@@ -43,15 +43,14 @@ func (stack *OperandStack) PushLong(val int64) {
 }
 func (stack *OperandStack) PopLong() int64 {
 	stack.size -= 2
-	low := stack.slots[stack.size].num
-	high := stack.slots[stack.size+1].num
+	low := uint32(stack.slots[stack.size].num)
+	high := uint32(stack.slots[stack.size+1].num)
 	return int64(high)<<32 | int64(low)
 }
 
 func (stack *OperandStack) PushDouble(val float64) {
 	bits := math.Float64bits(val)
 	stack.PushLong(int64(bits))
-	stack.size += 2
 }
 
 func (stack *OperandStack) PopDouble() float64 {

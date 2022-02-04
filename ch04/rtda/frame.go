@@ -18,7 +18,7 @@ type Frame struct {
 	next *Frame
 }
 
-func newFrame(maxLocal uint, maxStack uint) *Frame {
+func NewFrame(maxLocal uint, maxStack uint) *Frame {
 	return &Frame{
 		LocalVars: newLocalVars(maxLocal),
 		OperandStack: newOperandStack(maxStack),
