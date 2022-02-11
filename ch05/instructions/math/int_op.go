@@ -65,3 +65,20 @@ func (ins *INeg) Execute(frame *rtda.Frame) {
 	val := frame.PopInt()
 	frame.PushInt(-val)
 }
+
+// Increment local variable by constant
+type IInc struct {
+	Index uint
+	Const int32
+}
+
+func (instr *IInc) FetchOperands(reader *base.BytecodeReader) {
+	instr.Index = uint(reader.ReadUint8())
+	instr.Const = int32(reader.ReadInt8())
+}
+
+func (instr *IInc) Execute(frame *rtda.Frame) {
+	val := frame.GetInt(instr.Index)
+	val += instr.Const
+	frame.SetInt(instr.Index, val)
+}
