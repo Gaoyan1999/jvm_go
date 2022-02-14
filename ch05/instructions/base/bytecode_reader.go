@@ -20,6 +20,7 @@ func (reader *BytecodeReader) ReadUint16() uint16 {
 }
 func (reader *BytecodeReader) ReadUint8() uint8 {
 	i := reader.code[reader.pc]
+	reader.pc++
 	return i
 }
 func (reader *BytecodeReader) ReadInt8() int8 {
@@ -31,4 +32,16 @@ func (reader *BytecodeReader) ReadInt32() int32 {
 	byte3 := int32(reader.ReadUint8())
 	byte4 := int32(reader.ReadUint8())
 	return (byte1 << 24) | (byte2 << 16) | (byte3 << 8) | byte4
+}
+func (reader *BytecodeReader) ReadInt32s(n int32) []int32 {
+	ints:=make([]int32,n)
+	for i:=range  ints {
+		ints[i] = reader.ReadInt32()
+	}
+	return ints
+}
+func (reader *BytecodeReader) SkipPadding(){
+	for reader.pc%4 !=0 {
+		reader.ReadUint8()
+	}
 }

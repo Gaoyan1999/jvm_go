@@ -3,14 +3,14 @@ package base
 import "jvmgo/ch05/rtda"
 
 type Instruction interface {
-	FetchOperands()
+	FetchOperands(reader *BytecodeReader)
 	Execute(frame *rtda.Frame)
 }
 
 type NoOperandsInstruction struct {
 }
 
-func (ins *NoOperandsInstruction) FetchOperands() {
+func (ins *NoOperandsInstruction) FetchOperands(reader *BytecodeReader) {
 	// do nothing
 }
 

@@ -65,3 +65,7 @@ func (vars LocalVars) SetRef(index uint, ref *Object) {
 func (vars LocalVars) GetRef(index uint) *Object {
 	return vars[index].ref
 }
+
+func  (lv LocalVars)GetLocalVar(index uint) Slot  {
+	return lv[index]
+}
