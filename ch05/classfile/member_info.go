@@ -6,7 +6,7 @@ type MemberInfo struct {
 	accessFlags     uint16
 	nameIndex       uint16
 	descriptorIndex uint16
-	attributes      []AttributeInfo
+	Attributes      []AttributeInfo
 }
 
 func readMembers(reader *ClassReader, cp ConstantPool) []*MemberInfo {
@@ -24,7 +24,7 @@ func readMember(reader *ClassReader, cp ConstantPool) *MemberInfo {
 		accessFlags:     reader.readUint16(),
 		nameIndex:       reader.readUint16(),
 		descriptorIndex: reader.readUint16(),
-		attributes:      readAttributes(reader, cp),
+		Attributes:      readAttributes(reader, cp),
 	}
 }
 func (member *MemberInfo) Name() string {
@@ -33,4 +33,13 @@ func (member *MemberInfo) Name() string {
 
 func (member *MemberInfo) Descriptor() string {
 	return member.cp.getUtf8(member.descriptorIndex)
+}
+func (member *MemberInfo) CodeAttribute() *CodeAttribute {
+	for _, attrInfo := range member.Attributes {
+		switch attrInfo.(type) {
+		case *CodeAttribute:
+			return attrInfo.(*CodeAttribute)
+		}
+	}
+	return nil
 }

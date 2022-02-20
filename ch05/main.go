@@ -17,7 +17,7 @@ func main() {
 }
 
 func startJVM(cmd *Cmd) {
-	frame := rtda.NewFrame(100,100)
+	frame := rtda.NewFrame(rtda.NewThread(),100,100)
 	testLocalVars(frame.LocalVars)
 	testOperandStack(frame.OperandStack)
 }

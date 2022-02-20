@@ -1,13 +1,13 @@
 package constants
 
 import (
-	"jvmgo/ch04/rtda"
 	"jvmgo/ch05/instructions/base"
+	"jvmgo/ch05/rtda"
 )
 
 type NOP struct {
 	base.NoOperandsInstruction
 }
 
-func (ins *NOP) Execute(_ *rtda.Frame) {
+func (ins *NOP) Execute(frame *rtda.Frame) {
 }

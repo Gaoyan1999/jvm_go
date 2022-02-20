@@ -20,8 +20,9 @@ type Frame struct {
 	NextPC       int // the next instruction after the call
 }
 
-func NewFrame(maxLocal uint, maxStack uint) *Frame {
+func NewFrame(t *Thread,maxLocal uint, maxStack uint) *Frame {
 	return &Frame{
+		Thread: t,
 		LocalVars: newLocalVars(maxLocal),
 		OperandStack: newOperandStack(maxStack),
 	}
