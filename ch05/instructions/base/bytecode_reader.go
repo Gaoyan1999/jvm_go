@@ -2,12 +2,12 @@ package base
 
 type BytecodeReader struct {
 	code []byte
-	pc   int
+	PC   int
 }
 
 func (reader *BytecodeReader) Reset(code []byte, pc int) {
 	reader.code = code
-	reader.pc = pc
+	reader.PC = pc
 
 }
 func (reader *BytecodeReader) ReadInt16() int16 {
@@ -19,8 +19,8 @@ func (reader *BytecodeReader) ReadUint16() uint16 {
 	return (byte1 << 8) | byte2
 }
 func (reader *BytecodeReader) ReadUint8() uint8 {
-	i := reader.code[reader.pc]
-	reader.pc++
+	i := reader.code[reader.PC]
+	reader.PC++
 	return i
 }
 func (reader *BytecodeReader) ReadInt8() int8 {
@@ -41,7 +41,7 @@ func (reader *BytecodeReader) ReadInt32s(n int32) []int32 {
 	return ints
 }
 func (reader *BytecodeReader) SkipPadding(){
-	for reader.pc%4 !=0 {
+	for reader.PC%4 !=0 {
 		reader.ReadUint8()
 	}
 }
