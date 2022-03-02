@@ -35,6 +35,11 @@ func (ins *FCONST_1) Execute(frame *rtda.Frame) {
 	frame.OperandStack.PushFloat(1.0)
 }
 
+type FCONST_2 struct {base.NoOperandsInstruction}
+func (ins *FCONST_2) Execute(frame *rtda.Frame){
+	frame.OperandStack.PushFloat(2.0)
+}
+
 type ICONST_M1 struct{ base.NoOperandsInstruction }
 
 func (ins *ICONST_M1) Execute(frame *rtda.Frame) {
