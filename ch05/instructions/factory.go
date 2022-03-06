@@ -345,6 +345,28 @@ func NewInstruction(opcode byte) base.Instruction {
 		return dcmpg
 	case 0x99:
 		return NewIfEQ()
+	case 0x9a:
+		return NewIfNE()
+	case 0x9b:
+		return NewIfLT()
+	case 0x9c:
+		return NewIfGE()
+	case 0x9d:
+		return NewIfGT()
+	case 0x9e:
+		return NewIfLE()
+	case 0x9f:
+		return NewIfICmpEQ()
+	case 0xa0:
+		return NewIfICmpNE()
+	case 0xa1:
+		return NewIfICmpLT()
+	case 0xa2:
+		return NewIfICmpGE()
+	case 0xa3:
+		return NewIfICmpGT()
+	case 0xa4:
+		return NewIfICmpLE()
 	default:
 		panic(fmt.Errorf("Unspported opcode: 0x%x!", opcode))
 	}
