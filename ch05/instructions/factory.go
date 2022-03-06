@@ -11,6 +11,7 @@ import . "jvmgo/ch05/instructions/stack"
 import . "jvmgo/ch05/instructions/math"
 import . "jvmgo/ch05/instructions/conversions"
 import . "jvmgo/ch05/instructions/comparisions"
+import . "jvmgo/ch05/instructions/control"
 
 var (
 	nop         = &NOP{}
@@ -367,6 +368,17 @@ func NewInstruction(opcode byte) base.Instruction {
 		return NewIfICmpGT()
 	case 0xa4:
 		return NewIfICmpLE()
+	case 0xa5:
+		return NewIfACmpEQ()
+	case 0xa6:
+		return NewIfACmpNE()
+	case 0xa7:
+		return &GOTO{}
+	case 0xaa:
+		return &TableSwitch{}
+	case 0xab:
+		return &LookupSwitch{}
+
 	default:
 		panic(fmt.Errorf("Unspported opcode: 0x%x!", opcode))
 	}
