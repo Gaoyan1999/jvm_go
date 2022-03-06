@@ -8,7 +8,7 @@ CONSTANT_Fieldref_info {
 }
 */
 type ConstantMemberRefInfo struct {
-	 ConstantPool
+	ConstantPool
 	classIndex       uint16
 	nameAndTypeIndex uint16
 }

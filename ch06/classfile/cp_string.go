@@ -9,6 +9,6 @@ func (cs *ConstantStringInfo) readInfo(reader *ClassReader) {
 	cs.index = reader.readUint16()
 }
 
-func (cs *ConstantStringInfo) getValue() string {
+func (cs *ConstantStringInfo) GetValue() string {
 	return cs.getUtf8(cs.index)
 }

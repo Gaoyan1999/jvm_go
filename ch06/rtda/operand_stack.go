@@ -1,6 +1,9 @@
 package rtda
 
-import "math"
+import (
+	"jvmgo/ch06/heap"
+	"math"
+)
 
 type OperandStack struct {
 	size  uint
@@ -57,12 +60,12 @@ func (stack *OperandStack) PopDouble() float64 {
 	return math.Float64frombits(uint64(stack.PopLong()))
 }
 
-func (stack *OperandStack) PushRef(ref *Object) {
+func (stack *OperandStack) PushRef(ref *heap.Object) {
 	stack.slots[stack.size].ref = ref
 	stack.size++
 }
 
-func (stack *OperandStack) PopRef() *Object {
+func (stack *OperandStack) PopRef() *heap.Object {
 	stack.size--
 	res := stack.slots[stack.size].ref
 	stack.slots[stack.size].ref = nil
