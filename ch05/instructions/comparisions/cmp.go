@@ -6,6 +6,7 @@ import (
 )
 
 func NewLCMP() *Lcmp  { return &Lcmp{} }
+// 当两个float变量中至少有一个是NaN时，用fcmpg指令比较的结果是1，而用fcmpl指令比较的结果是-1。
 func NewFCMPG() *Fcmp { return &Fcmp{g: true} }
 func NewFCMPL() *Fcmp { return &Fcmp{g: false} }
 func NewDCMPG() *Dcmp { return &Dcmp{g: true} }
@@ -28,6 +29,7 @@ func (ins *Lcmp) Execute(frame *rtda.Frame) {
 
 type Fcmp struct {
 	base.NoOperandsInstruction
+	// 是否可能无法比较
 	g bool
 }
 func (ins *Fcmp) Execute(frame *rtda.Frame) {

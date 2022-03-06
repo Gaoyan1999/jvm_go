@@ -47,6 +47,10 @@ func (cf *ClassFile) InterfaceNames() []string {
 	}
 	return interfaceNames
 }
+func (cf *ClassFile) Methods() []*MemberInfo {
+	return cf.methods
+}
+
 
 func Parse(classData []byte) (cf *ClassFile, err error) {
 	defer func() {
