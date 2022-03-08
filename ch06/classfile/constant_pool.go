@@ -35,5 +35,5 @@ func (pool ConstantPool) getUtf8(index uint16) string {
 
 func (cp ConstantPool) getClassName(index uint16) string {
 	classInfo := cp.getConstantInfo(index).(*ConstantClassInfo)
-	return classInfo.name()
+	return classInfo.Name()
 }

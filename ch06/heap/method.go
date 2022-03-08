@@ -15,6 +15,7 @@ func newMethods(class *Class,cfMethods []*classfile.MemberInfo) []*Method  {
 		methods[i] = &Method{}
 		methods[i].class = class
 		methods[i].copyMemberInfo(cfMethod)
+		methods[i].copyAttributes(cfMethod)
 	}
 	return methods
 }
