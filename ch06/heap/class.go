@@ -1,24 +1,23 @@
 package heap
 
 import (
-	. "jvmgo/ch05/classfile"
 	"jvmgo/ch06/classfile"
 )
 
 type Class struct {
-	accessFlags    uint16
-	name           string
-	superClassName string
-	interfaceNames []string
-	constantPool   *ConstantPool
-	fields         []string
-	methods        []string
-	//loader *ClassLoader
+	accessFlags       uint16
+	name              string
+	superClassName    string
+	interfaceNames    []string
+	constantPool      *ConstantPool
+	fields            []*Field
+	methods           []*Method
+	loader            *ClassLoader
 	superClass        *Class
 	interfaces        []*Class
 	instanceSlotCount uint
-	staticSlotCount   int
-	staticVars        string
+	staticSlotCount   uint
+	staticFieldSlots  Slots
 }
 
 func newClass(cf *classfile.ClassFile) *Class {
