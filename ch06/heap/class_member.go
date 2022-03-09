@@ -16,3 +16,18 @@ func (classMember *ClassMember) copyMemberInfo(info *classfile.MemberInfo) {
 	classMember.name = info.Name()
 	classMember.descriptor = info.Descriptor()
 }
+
+func (classMember *ClassMember) isAccessibleTo(other *Class) bool {
+	if classMember.IsPublic() {
+		return true
+	}
+	self := classMember.class
+	if classMember.IsProtected() {
+		return self == other || self.getPackageName() == other.getPackageName() || other.isSubClassOf(self)
+	}
+	if !classMember.IsPrivate() {
+		return self.getPackageName() == other.getPackageName()
+	}
+
+	return self == other
+}

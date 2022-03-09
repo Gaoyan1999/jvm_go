@@ -1,7 +1,7 @@
 package heap
 
 import (
-	"golang.org/x/tools/go/ssa/interp/testdata/src/fmt"
+	"fmt"
 	"jvmgo/ch06/classfile"
 )
 
@@ -26,7 +26,7 @@ func newConstantPool(class *Class, cfCp classfile.ConstantPool) *ConstantPool {
 			consts[i] = floatInfo.Value()
 		case *classfile.ConstantLongInfo:
 			longInfo := cpInfo.(*classfile.ConstantLongInfo)
-			consts[i] = longInfo.Value
+			consts[i] = longInfo.Value()
 			i++
 		case *classfile.ConstantDoubleInfo:
 			doubleInfo := cpInfo.(*classfile.ConstantDoubleInfo)

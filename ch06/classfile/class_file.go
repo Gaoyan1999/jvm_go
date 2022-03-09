@@ -30,6 +30,9 @@ func (cf *ClassFile) MinorVersion() uint16 {
 func (cf *ClassFile) AccessFlags() uint16 {
 	return cf.accessFlags
 }
+func (cf *ClassFile) ConstantPool() ConstantPool {
+	return cf.constantPool
+}
 
 func (cf *ClassFile) ClassName() string {
 	return cf.constantPool.getClassName(cf.thisClass)
@@ -50,7 +53,9 @@ func (cf *ClassFile) InterfaceNames() []string {
 func (cf *ClassFile) Methods() []*MemberInfo {
 	return cf.methods
 }
-
+func (cf *ClassFile) Fields() []*MemberInfo {
+	return cf.fields
+}
 
 func Parse(classData []byte) (cf *ClassFile, err error) {
 	defer func() {

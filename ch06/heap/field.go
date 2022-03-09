@@ -4,7 +4,7 @@ import "jvmgo/ch06/classfile"
 
 type Field struct {
 	ClassMember
-	slotId uint
+	slotId          uint
 	constValueIndex uint
 }
 
@@ -14,12 +14,13 @@ func newFields(class *Class, cfFields []*classfile.MemberInfo) []*Field {
 		fields[i] = &Field{}
 		fields[i].class = class
 		fields[i].copyMemberInfo(cfField)
+		fields[i].copyAttribute(cfField)
 	}
 	return fields
 }
 
-func (field *Field)copyAttribute(cfField *classfile.MemberInfo)  {
-	if valAttr := cfField.ConstantValueAttribute();valAttr !=nil {
+func (field *Field) copyAttribute(cfField *classfile.MemberInfo) {
+	if valAttr := cfField.ConstantValueAttribute(); valAttr != nil {
 		field.constValueIndex = uint(valAttr.ConstantValueIndex())
 	}
 }
