@@ -6,7 +6,7 @@ import (
 )
 
 type Class struct {
-	accessFlags       AccessFlags
+	AccessFlags
 	name              string
 	superClassName    string
 	interfaceNames    []string
@@ -23,7 +23,7 @@ type Class struct {
 
 func newClass(cf *classfile.ClassFile) *Class {
 	class := &Class{}
-	class.accessFlags = AccessFlags(cf.AccessFlags())
+	class.AccessFlags = AccessFlags(cf.AccessFlags())
 	class.name = cf.ClassName()
 	class.superClassName = cf.SuperClassName()
 	class.interfaceNames = cf.InterfaceNames()
@@ -33,8 +33,19 @@ func newClass(cf *classfile.ClassFile) *Class {
 	return class
 }
 
+func (class *Class) NewObject()*Object {
+	return newObject(class)
+}
+
+func newObject(class *Class)*Object  {
+	return &Object{
+		class : class,
+		field: newSlots(class.instanceSlotCount),
+	}
+}
+
 func (class *Class) isAccessibleTo(other *Class) bool {
-	return class.accessFlags.IsPublic() || class.getPackageName() == other.getPackageName()
+	return class.IsPublic() || class.getPackageName() == other.getPackageName()
 }
 
 func (class *Class) getPackageName() string {
@@ -51,4 +62,10 @@ func (class *Class) isSubClassOf(other *Class) bool {
 		}
 	}
 	return false
+}
+func (class *Class) ConstantPool() *ConstantPool {
+	return class.constantPool
+}
+func (class *Class) StaticFieldSlots() Slots {
+	return class.staticFieldSlots
 }

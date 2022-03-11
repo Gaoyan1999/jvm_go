@@ -31,3 +31,14 @@ func (classMember *ClassMember) isAccessibleTo(other *Class) bool {
 
 	return self == other
 }
+
+func (classMember *ClassMember) Class() *Class {
+	return classMember.class
+}
+
+func (classMember *ClassMember) Name() string {
+	return classMember.name
+}
+func (classMember *ClassMember) Descriptor() string {
+	return classMember.descriptor
+}

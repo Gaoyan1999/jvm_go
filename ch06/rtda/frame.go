@@ -1,5 +1,7 @@
 package rtda
 
+import "jvmgo/ch06/heap"
+
 /**
 https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6
 
@@ -15,15 +17,19 @@ and a reference to the run-time constant pool (§2.5.5) of the class of the curr
 type Frame struct {
 	LocalVars
 	*OperandStack
-	next *Frame
-	Thread *Thread
-	NextPC       int // the next instruction after the call
+	next      *Frame
+	Thread    *Thread
+	Method    *heap.Method
+	maxLocals uint
+	maxStack  uint
+	NextPC    int // the next instruction after the call
 }
 
-func NewFrame(t *Thread,maxLocal uint, maxStack uint) *Frame {
+func NewFrame(t *Thread, method *heap.Method, maxLocal uint, maxStack uint) *Frame {
 	return &Frame{
-		Thread: t,
-		LocalVars: newLocalVars(maxLocal),
+		Thread:       t,
+		Method:       method,
+		LocalVars:    newLocalVars(maxLocal),
 		OperandStack: newOperandStack(maxStack),
 	}
 }

@@ -57,13 +57,13 @@ func (vars Slots) GetDouble(index uint) float64 {
 	return math.Float64frombits(bits)
 }
 
-func (vars LocalVars) SetRef(index uint, ref *Object) {
+func (vars Slots) SetRef(index uint, ref *Object) {
 	vars[index].ref = ref
 }
-func (vars LocalVars) GetRef(index uint) *Object {
+func (vars Slots) GetRef(index uint) *Object {
 	return vars[index].ref
 }
 
-func  (lv LocalVars)GetLocalVar(index uint) Slot  {
+func  (lv Slots)GetLocalVar(index uint) Slot  {
 	return lv[index]
 }

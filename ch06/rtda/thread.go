@@ -1,5 +1,7 @@
 package rtda
 
+import "jvmgo/ch06/heap"
+
 /**
 https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.5
 */
@@ -29,6 +31,6 @@ func (t *Thread) PopFrame() *Frame {
 func (t *Thread) CurrentFrame() *Frame {
 	return t.stack.top()
 }
-func (t *Thread) NewFrame(maxLocals,maxStack uint) *Frame{
-	return NewFrame(t,maxLocals,maxStack)
+func (t *Thread) NewFrame(method *heap.Method,maxLocals,maxStack uint) *Frame{
+	return NewFrame(t,method,maxLocals,maxStack)
 }
