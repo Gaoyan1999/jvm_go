@@ -20,16 +20,14 @@ type Frame struct {
 	next      *Frame
 	Thread    *Thread
 	Method    *heap.Method
-	maxLocals uint
-	maxStack  uint
 	NextPC    int // the next instruction after the call
 }
 
-func NewFrame(t *Thread, method *heap.Method, maxLocal uint, maxStack uint) *Frame {
+func NewFrame(t *Thread, method *heap.Method) *Frame {
 	return &Frame{
 		Thread:       t,
 		Method:       method,
-		LocalVars:    newLocalVars(maxLocal),
-		OperandStack: newOperandStack(maxStack),
+		LocalVars:    newLocalVars(method.MaxLocals()),
+		OperandStack: newOperandStack(method.MaxStack()),
 	}
 }

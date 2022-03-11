@@ -31,6 +31,6 @@ func (t *Thread) PopFrame() *Frame {
 func (t *Thread) CurrentFrame() *Frame {
 	return t.stack.top()
 }
-func (t *Thread) NewFrame(method *heap.Method,maxLocals,maxStack uint) *Frame{
-	return NewFrame(t,method,maxLocals,maxStack)
+func (t *Thread) NewFrame(method *heap.Method) *Frame{
+	return NewFrame(t,method)
 }

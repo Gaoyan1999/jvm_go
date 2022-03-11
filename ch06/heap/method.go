@@ -2,16 +2,16 @@ package heap
 
 import "jvmgo/ch06/classfile"
 
-type  Method struct {
+type Method struct {
 	ClassMember
-	maxStack uint
+	maxStack  uint
 	maxLocals uint
-	code []byte
+	code      []byte
 }
 
-func newMethods(class *Class,cfMethods []*classfile.MemberInfo) []*Method  {
+func newMethods(class *Class, cfMethods []*classfile.MemberInfo) []*Method {
 	methods := make([]*Method, len(cfMethods))
-	for i,cfMethod := range cfMethods {
+	for i, cfMethod := range cfMethods {
 		methods[i] = &Method{}
 		methods[i].class = class
 		methods[i].copyMemberInfo(cfMethod)
@@ -20,10 +20,16 @@ func newMethods(class *Class,cfMethods []*classfile.MemberInfo) []*Method  {
 	return methods
 }
 
-func (m *Method) copyAttributes (cfMethod *classfile.MemberInfo)  {
-	if codeAttr := cfMethod.CodeAttribute();codeAttr !=nil {
+func (m *Method) copyAttributes(cfMethod *classfile.MemberInfo) {
+	if codeAttr := cfMethod.CodeAttribute(); codeAttr != nil {
 		m.maxStack = uint(codeAttr.MaxStack)
 		m.maxLocals = uint(codeAttr.MaxLocals)
 		m.code = codeAttr.Code
 	}
+}
+func (m *Method) MaxStack() uint {
+	return m.maxStack
+}
+func (m *Method) MaxLocals() uint {
+	return m.maxLocals
 }

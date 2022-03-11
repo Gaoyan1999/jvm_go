@@ -33,13 +33,13 @@ func newClass(cf *classfile.ClassFile) *Class {
 	return class
 }
 
-func (class *Class) NewObject()*Object {
+func (class *Class) NewObject() *Object {
 	return newObject(class)
 }
 
-func newObject(class *Class)*Object  {
+func newObject(class *Class) *Object {
 	return &Object{
-		class : class,
+		class:  class,
 		fields: newSlots(class.instanceSlotCount),
 	}
 }
@@ -55,14 +55,6 @@ func (class *Class) getPackageName() string {
 	return ""
 }
 
-func (class *Class) isSubClassOf(other *Class) bool {
-	for c := class.superClass; c != nil; c = c.superClass {
-		if c == other {
-			return true
-		}
-	}
-	return false
-}
 func (class *Class) ConstantPool() *ConstantPool {
 	return class.constantPool
 }
