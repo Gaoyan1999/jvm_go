@@ -6,6 +6,7 @@ import (
 	"jvmgo/ch06/rtda"
 )
 
+// 给类的某个静态变量赋值
 type PutStatic struct{ base.Index16Instruction }
 
 func (putStatic *PutStatic) Execute(frame *rtda.Frame) {
@@ -29,10 +30,10 @@ func (putStatic *PutStatic) Execute(frame *rtda.Frame) {
 	slots:= class.StaticFieldSlots()
 	stack := frame.OperandStack
 	switch  descriptor[0] {
-	case 'Z','B','C','S','I': stack.PushInt(slots.GetInt(slotId))
-	case 'F': stack.PushFloat(slots.GetFloat(slotId))
-	case 'J': stack.PushLong(slots.GetLong(slotId))
-	case 'D': stack.PushDouble(slots.GetDouble(slotId))
-	case '[','L': stack.PushRef(slots.GetRef(slotId))
+	case 'Z','B','C','S','I': slots.SetInt(slotId,stack.PopInt())
+	case 'F':  slots.SetFloat(slotId,stack.PopFloat())
+	case 'J': slots.SetLong(slotId,stack.PopLong())
+	case 'D': slots.SetDouble(slotId,stack.PopDouble())
+	case '[','L': slots.SetRef(slotId,stack.PopRef())
 	}
 }
