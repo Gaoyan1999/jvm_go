@@ -40,7 +40,7 @@ func (class *Class) NewObject()*Object {
 func newObject(class *Class)*Object  {
 	return &Object{
 		class : class,
-		field: newSlots(class.instanceSlotCount),
+		fields: newSlots(class.instanceSlotCount),
 	}
 }
 

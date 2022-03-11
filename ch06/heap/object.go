@@ -1,6 +1,10 @@
 package heap
 
 type Object struct {
-	class *Class
-	field Slots
+	class  *Class
+	fields Slots
+}
+
+func (ref *Object) Fields() Slots {
+	return ref.fields
 }
