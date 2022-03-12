@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"jvmgo/ch02/classpath"
-	"jvmgo/ch05/classfile"
+	"jvmgo/ch06/classpath"
+	"jvmgo/ch06/heap"
 	"strings"
 )
 
@@ -20,35 +20,13 @@ func main() {
 
 func startJVM(cmd *Cmd) {
 	cp := classpath.Parse(cmd.XjreOption, cmd.cpOption)
-	// // If n < 0, there is no limit on the number of replacements.
-	className := strings.Replace(cmd.class, ".", "/", -1)
-	classFile := loadClass(className, cp)
-	mainMethod := getMainMethod(classFile)
-	if mainMethod != nil {
-		interpret(mainMethod)
-	} else {
-		fmt.Printf("Main method not found in class %s\n", cmd.class)
-	}
-
-}
-func loadClass(className string, cp *classpath.ClassPath) *classfile.ClassFile {
-	classData, _, err := cp.ReadClass(className)
-	if err != nil {
-		panic(err)
-	}
-	if classFile, err := classfile.Parse(classData) ; err == nil {
-		return classFile
+	loader := heap.NewClassLoader(cp)
+	className := strings.Replace(cmd.class,".","/",-1)
+	mainClass := loader.LoadClass(className)
+	mainMethod := mainClass.GetMainMethod()
+	if mainMethod !=nil {
+		interpret()
 	}else {
-		panic(err)
+		fmt.Printf("Main method not found in class %s\n",cmd.class)
 	}
-
-}
-
-func getMainMethod(cf *classfile.ClassFile) *classfile.MemberInfo {
-	for _, m := range cf.Methods() {
-		if m.Name() == "main" && m.Descriptor() == "([Ljava/lang/String;)V" {
-			return m
-		}
-	}
-	return nil
 }

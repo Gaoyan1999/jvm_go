@@ -1,8 +1,8 @@
 package load
 
 import (
-	"jvmgo/ch05/instructions/base"
-	"jvmgo/ch05/rtda"
+	"jvmgo/ch06/instructions/base"
+	"jvmgo/ch06/rtda"
 )
 
 // The index is an unsigned byte that must be an index into the local variable array of the current frame

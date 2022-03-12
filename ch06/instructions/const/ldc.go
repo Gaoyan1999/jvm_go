@@ -1,8 +1,8 @@
 package constants
 
 import (
-	"jvmgo/ch05/instructions/base"
-	"jvmgo/ch05/rtda"
+	"jvmgo/ch06/instructions/base"
+	"jvmgo/ch06/rtda"
 )
 
 type LDC struct {base.Index8Instruction}

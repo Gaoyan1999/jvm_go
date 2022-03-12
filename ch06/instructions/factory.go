@@ -2,16 +2,16 @@ package instructions
 
 import (
 	"fmt"
-	"jvmgo/ch05/instructions/base"
+	"jvmgo/ch06/instructions/base"
 )
-import . "jvmgo/ch05/instructions/const"
-import . "jvmgo/ch05/instructions/load"
-import . "jvmgo/ch05/instructions/store"
-import . "jvmgo/ch05/instructions/stack"
-import . "jvmgo/ch05/instructions/math"
-import . "jvmgo/ch05/instructions/conversions"
-import . "jvmgo/ch05/instructions/comparisions"
-import . "jvmgo/ch05/instructions/control"
+import . "jvmgo/ch06/instructions/const"
+import . "jvmgo/ch06/instructions/load"
+import . "jvmgo/ch06/instructions/store"
+import . "jvmgo/ch06/instructions/stack"
+import . "jvmgo/ch06/instructions/math"
+import . "jvmgo/ch06/instructions/conversions"
+import . "jvmgo/ch06/instructions/comparisions"
+import . "jvmgo/ch06/instructions/control"
 
 var (
 	nop         = &NOP{}

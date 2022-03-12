@@ -1,7 +1,7 @@
 package load
 
 import (
-	"jvmgo/ch05/instructions/base"
+	"jvmgo/ch06/instructions/base"
 )
 
 func NewLoad(d bool) *Load {

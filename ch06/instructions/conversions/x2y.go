@@ -1,8 +1,8 @@
 package conversions
 
 import (
-	"jvmgo/ch05/instructions/base"
-	"jvmgo/ch05/rtda"
+	"jvmgo/ch06/instructions/base"
+	"jvmgo/ch06/rtda"
 )
 
 func NewI2B() *X2Y { return &X2Y{castFn: i2b} }
