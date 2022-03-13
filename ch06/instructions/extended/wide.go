@@ -16,7 +16,7 @@ func (ins *WIDE) FetchOperands(reader *base.BytecodeReader) {
 	switch opcode {
 	// TODO: complete it
 	case 0x15:
-		inst := &load.ILOAD{}
+		inst := &load.ALoad{}
 		inst.Index = uint(reader.ReadUint16())
 		ins.modifiedInstruction = inst
 	case 0x84:

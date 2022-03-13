@@ -34,7 +34,7 @@ func (classLoader *ClassLoader) loadNonArrayClass(name string) *Class {
 	// 链接
 	link(class)
 	fmt.Printf("[Loaded %s from %s]\n", name, entry)
-	return nil
+	return class
 }
 
 func (classLoader *ClassLoader) readClass(name string) ([]byte, classpath.Entry) {

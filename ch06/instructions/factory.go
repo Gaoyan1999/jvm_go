@@ -12,6 +12,7 @@ import . "jvmgo/ch06/instructions/math"
 import . "jvmgo/ch06/instructions/conversions"
 import . "jvmgo/ch06/instructions/comparisions"
 import . "jvmgo/ch06/instructions/control"
+import . "jvmgo/ch06/instructions/references"
 
 var (
 	nop         = &NOP{}
@@ -38,7 +39,10 @@ var (
 	lload_1     = &LLoad_1{}
 	lload_2     = &LLoad_2{}
 	lload_3     = &LLoad_3{}
-	// TODO: fLoad dLoad aLoad
+	aload_0     = &ALoad_0{}
+	aload_1     = &ALoad_1{}
+	aload_2     = &ALoad_2{}
+	aload_3     = &ALoad_3{}
 	istore_0 = &ISTORE_0{}
 	istore_1 = &ISTORE_1{}
 	istore_2 = &ISTORE_2{}
@@ -55,6 +59,10 @@ var (
 	dstore_1 = &DSTORE_1{}
 	dstore_2 = &DSTORE_2{}
 	dstore_3 = &DSTORE_3{}
+	astore_0 = &AStore_0{}
+	astore_1 = &AStore_1{}
+	astore_2 = &AStore_2{}
+	astore_3 = &AStore_3{}
 	pop      = &POP{}
 	pop2     = &POP2{}
 	dup      = &DUP{}
@@ -145,6 +153,16 @@ func NewInstruction(opcode byte) base.Instruction {
 		return iconst_5
 	case 0x09:
 		return lconst_0
+	case 0x10:
+		return &BIPUSH{}
+	case 0x11:
+		return &SIPUSH{}
+	case 0x12:
+		return &LDC{}
+	case 0x13:
+		return &LDC_W{}
+	case 0x14:
+		return &LDC2_W{}
 	case 0x0a:
 		return lconst_1
 	case 0x0b:
@@ -157,10 +175,6 @@ func NewInstruction(opcode byte) base.Instruction {
 		return dconst_0
 	case 0x0f:
 		return dconst_1
-	case 0x10:
-		return &BIPUSH{}
-	case 0x11:
-		return &SIPUSH{}
 	case 0x1a:
 		return iload_0
 	case 0x1b:
@@ -177,8 +191,30 @@ func NewInstruction(opcode byte) base.Instruction {
 		return lload_2
 	case 0x21:
 		return lload_3
-
-	// TODO:
+	//case 0x22:
+	//	return fload_0
+	//case 0x23:
+	//	return fload_1
+	//case 0x24:
+	//	return fload_2
+	//case 0x25:
+	//	return fload_3
+	//case 0x26:
+	//	return dload_0
+	//case 0x27:
+	//	return dload_1
+	//case 0x28:
+	//	return dload_2
+	//case 0x29:
+	//	return dload_3
+	case 0x2a:
+		return aload_0
+	case 0x2b:
+		return aload_1
+	case 0x2c:
+		return aload_2
+	case 0x2d:
+		return aload_3
 	case 0x3b:
 		return istore_0
 	case 0x3c:
@@ -211,7 +247,14 @@ func NewInstruction(opcode byte) base.Instruction {
 		return dstore_2
 	case 0x4a:
 		return dstore_3
-	// TODO: astore 0x46 ~ 0x56
+	case 0x4b:
+		return astore_0
+	case 0x4c:
+		return astore_1
+	case 0x4d:
+		return astore_2
+	case 0x4e:
+		return astore_3
 	case 0x57:
 		return pop
 	case 0x58:
@@ -378,6 +421,24 @@ func NewInstruction(opcode byte) base.Instruction {
 		return &TableSwitch{}
 	case 0xab:
 		return &LookupSwitch{}
+	case 0xb2:
+		return &GetStatic{}
+	case 0xb3:
+		return &PutStatic{}
+	case 0xb4:
+		return &GetField{}
+	case 0xb5:
+		return &PutField{}
+	case 0xb6:
+		return &InvokeVirtual{}
+	case 0xb7:
+		return &InvokeSpecial{}
+	case 0xbb:
+		return &New{}
+	case 0xc0:
+		return &CheckCast{}
+	case 0xc1:
+		return &InstanceOf{}
 
 	default:
 		panic(fmt.Errorf("Unspported opcode: 0x%x!", opcode))

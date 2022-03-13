@@ -25,7 +25,7 @@ func startJVM(cmd *Cmd) {
 	mainClass := loader.LoadClass(className)
 	mainMethod := mainClass.GetMainMethod()
 	if mainMethod !=nil {
-		interpret()
+		interpret(mainMethod)
 	}else {
 		fmt.Printf("Main method not found in class %s\n",cmd.class)
 	}
