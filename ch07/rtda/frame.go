@@ -31,3 +31,7 @@ func NewFrame(t *Thread, method *heap.Method) *Frame {
 		OperandStack: newOperandStack(method.MaxStack()),
 	}
 }
+
+func (frame *Frame) RevertNextPC() {
+	frame.NextPC = frame.Thread.pc
+}

@@ -12,6 +12,12 @@ func (new *New) Execute(frame *rtda.Frame) {
 	cp := frame.Method.ClassMember.Class().ConstantPool()
 	classRef := cp.GetConstant(new.Index).(*heap.ClassRef)
 	class := classRef.ResolvedClass()
+	if !class.InitStarted {
+		frame.RevertNextPC()
+		base.InitClass(frame.Thread,class)
+		return
+	}
+
 	if class.IsInterface() || class.IsAbstract() {
 		panic("java.lang.InstantiationError")
 	}

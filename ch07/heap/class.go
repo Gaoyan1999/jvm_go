@@ -19,6 +19,7 @@ type Class struct {
 	instanceSlotCount uint
 	staticSlotCount   uint
 	staticFieldSlots  Slots
+	InitStarted       bool
 }
 
 func newClass(cf *classfile.ClassFile) *Class {
@@ -75,4 +76,12 @@ func (class *Class) getStaticMethod(name, descriptor string) *Method {
 		}
 	}
 	return nil
+}
+
+func (class *Class) StartInit() {
+	class.InitStarted = true
+}
+
+func (class *Class) GetClinitMethod() *Method {
+	return class.getStaticMethod("<clinit>", "()V")
 }
