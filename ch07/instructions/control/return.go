@@ -5,14 +5,14 @@ import (
 	"jvmgo/ch07/rtda"
 )
 
-type Return struct{ base.NoOperandsInstruction } // Return void from method
+type Return struct{ base.NoOperandsInstruction }  // Return void from method
 type AReturn struct{ base.NoOperandsInstruction } // Return reference from method
 type DReturn struct{ base.NoOperandsInstruction } // Return double from method
 type FReturn struct{ base.NoOperandsInstruction } // Return float from method
 type IReturn struct{ base.NoOperandsInstruction } // Return int from method
 type LReturn struct{ base.NoOperandsInstruction } // Return long from method
 
-func (ins *Return) Execute(frame *rtda.Frame){
+func (ins *Return) Execute(frame *rtda.Frame) {
 	frame.Thread.PopFrame()
 }
 
@@ -52,6 +52,6 @@ func (ins *LReturn) Execute(frame *rtda.Frame) {
 	thread := frame.Thread
 	currentFrame := thread.PopFrame()
 	invokerFrame := thread.TopFrame()
-	retVal := currentFrame.OperandStack.PopFloat()
-	invokerFrame.OperandStack.PushFloat(retVal)
+	retVal := currentFrame.OperandStack.PopLong()
+	invokerFrame.OperandStack.PushLong(retVal)
 }

@@ -17,10 +17,10 @@ and a reference to the run-time constant pool (§2.5.5) of the class of the curr
 type Frame struct {
 	LocalVars
 	*OperandStack
-	next      *Frame
-	Thread    *Thread
-	Method    *heap.Method
-	NextPC    int // the next instruction after the call
+	lower  *Frame
+	Thread *Thread
+	Method *heap.Method
+	NextPC int // the next instruction after the call
 }
 
 func NewFrame(t *Thread, method *heap.Method) *Frame {

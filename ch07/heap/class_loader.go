@@ -7,14 +7,16 @@ import (
 )
 
 type ClassLoader struct {
-	classPath *classpath.ClassPath
-	classMap  map[string]*Class // loaded classes
+	classPath   *classpath.ClassPath
+	verboseFlag bool
+	classMap    map[string]*Class // loaded classes
 }
 
-func NewClassLoader(classPath *classpath.ClassPath) *ClassLoader {
+func NewClassLoader(classPath *classpath.ClassPath, verboseFlag bool) *ClassLoader {
 	return &ClassLoader{
-		classPath: classPath,
-		classMap:  make(map[string]*Class),
+		classPath:   classPath,
+		verboseFlag: verboseFlag,
+		classMap:    make(map[string]*Class),
 	}
 }
 
@@ -33,7 +35,9 @@ func (classLoader *ClassLoader) loadNonArrayClass(name string) *Class {
 	class := classLoader.defineClass(data)
 	// 链接
 	link(class)
-	fmt.Printf("[Loaded %s from %s]\n", name, entry)
+	if classLoader.verboseFlag {
+		fmt.Printf("[Loaded %s from %s]\n", name, entry)
+	}
 	return class
 }
 

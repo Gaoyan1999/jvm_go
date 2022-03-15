@@ -22,6 +22,7 @@ func catchErr(thread *rtda.Thread) {
 		panic(r)
 	}
 }
+
 func logFrames(thread *rtda.Thread) {
 	for !thread.IsStackEmpty() {
 		frame := thread.PopFrame()
@@ -32,9 +33,9 @@ func logFrames(thread *rtda.Thread) {
 }
 
 func loop(thread *rtda.Thread, logInst bool) {
-	frame := thread.PopFrame()
 	reader := &base.BytecodeReader{}
 	for {
+		frame := thread.CurrentFrame()
 		pc := frame.NextPC
 		thread.SetPC(pc)
 		// decode
@@ -43,8 +44,9 @@ func loop(thread *rtda.Thread, logInst bool) {
 		inst := instructions.NewInstruction(opcode)
 		inst.FetchOperands(reader)
 		frame.NextPC = reader.PC
+
 		if logInst {
-			logInstruction(frame,inst)
+			logInstruction(frame, inst)
 		}
 		inst.Execute(frame)
 		if thread.IsStackEmpty() {
@@ -52,10 +54,10 @@ func loop(thread *rtda.Thread, logInst bool) {
 		}
 	}
 }
-func logInstruction(frame *rtda.Frame,ins base.Instruction) {
+
+func logInstruction(frame *rtda.Frame, ins base.Instruction) {
 	method := frame.Method
 	className := method.Class().Name
 	methodName := method.Name()
-
 	fmt.Printf("%v.%v() #%2d %T %v\n", className, methodName, frame.Thread.PC(), ins, ins)
 }

@@ -15,7 +15,7 @@ func (stack *Stack) push(frame *Frame) {
 		panic("java.lang.StackOverflowError")
 	}
 	if stack._top != nil {
-		frame.next = stack._top
+		frame.lower = stack._top
 	}
 	stack._top = frame
 	stack.size++
@@ -24,11 +24,11 @@ func (stack *Stack) pop() *Frame {
 	if stack._top == nil {
 		panic("jvm stack is empty!")
 	}
-	pop := stack._top
-	stack._top.next = nil
-	stack._top = stack._top.next
+	top := stack._top
+	stack._top = top.lower
+	top.lower = nil
 	stack.size--
-	return pop
+	return top
 }
 func (stack *Stack) top() *Frame {
 	if stack._top == nil {

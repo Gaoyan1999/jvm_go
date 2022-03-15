@@ -43,91 +43,97 @@ var (
 	aload_1     = &ALoad_1{}
 	aload_2     = &ALoad_2{}
 	aload_3     = &ALoad_3{}
-	istore_0 = &ISTORE_0{}
-	istore_1 = &ISTORE_1{}
-	istore_2 = &ISTORE_2{}
-	istore_3 = &ISTORE_3{}
-	lstore_0 = &LSTORE_0{}
-	lstore_1 = &LSTORE_1{}
-	lstore_2 = &LSTORE_2{}
-	lstore_3 = &LSTORE_3{}
-	fstore_0 = &FSTORE_0{}
-	fstore_1 = &FSTORE_1{}
-	fstore_2 = &FSTORE_2{}
-	fstore_3 = &FSTORE_3{}
-	dstore_0 = &DSTORE_0{}
-	dstore_1 = &DSTORE_1{}
-	dstore_2 = &DSTORE_2{}
-	dstore_3 = &DSTORE_3{}
-	astore_0 = &AStore_0{}
-	astore_1 = &AStore_1{}
-	astore_2 = &AStore_2{}
-	astore_3 = &AStore_3{}
-	pop      = &POP{}
-	pop2     = &POP2{}
-	dup      = &DUP{}
-	dup_x1   = &DUP_X1{}
-	dup_x2   = &DUP_X2{}
-	dup2     = &DUP2{}
-	dup2_x1  = &DUP2_X1{}
-	dup2_x2  = &DUP2_X2{}
-	swap     = &SWAP{}
-	iadd     = NewIAdd()
-	ladd     = NewLAdd()
-	fadd     = NewFAdd()
-	dadd     = NewDAdd()
-	isub     = NewISub()
-	lsub     = NewLSub()
-	fsub     = NewFSub()
-	dsub     = NewDSub()
-	imul     = NewIMul()
-	lmul     = NewLMul()
-	fmul     = NewFMul()
-	dmul     = NewDMul()
-	idiv     = NewIDiv()
-	ldiv     = NewLDiv()
-	fdiv     = NewFDiv()
-	ddiv     = NewDDiv()
-	irem     = NewIRem()
-	lrem     = NewLRem()
-	frem     = NewFRem()
-	drem     = NewDRem()
-	ineg     = NewINeg()
-	lneg     = NewLNeg()
-	fneg     = NewFNeg()
-	dneg     = NewDNeg()
-	ishl     = NewIShl()
-	lshl     = NewLShl()
-	ishr     = NewIShr()
-	lshr     = NewLShr()
-	iushr    = NewIUShr()
-	lushr    = NewLUShr()
-	iand     = NewIAnd()
-	land     = NewLAnd()
-	ior      = NewIOr()
-	lor      = NewLOr()
-	ixor     = NewIXor()
-	lxor     = NewLXor()
-	i2l      = NewI2L()
-	i2f      = NewI2F()
-	i2d      = NewI2D()
-	l2i      = NewL2I()
-	l2f      = NewL2F()
-	l2d      = NewL2D()
-	f2i      = NewF2I()
-	f2l      = NewF2L()
-	f2d      = NewF2D()
-	d2i      = NewD2I()
-	d2l      = NewD2L()
-	d2f      = NewD2F()
-	i2b      = NewI2B()
-	i2c      = NewI2C()
-	i2s      = NewI2S()
-	lcmp     = NewLCMP()
-	fcmpl    = NewFCMPL()
-	fcmpg    = NewFCMPG()
-	dcmpl    = NewDCMPL()
-	dcmpg    = NewDCMPG()
+	istore_0    = &ISTORE_0{}
+	istore_1    = &ISTORE_1{}
+	istore_2    = &ISTORE_2{}
+	istore_3    = &ISTORE_3{}
+	lstore_0    = &LSTORE_0{}
+	lstore_1    = &LSTORE_1{}
+	lstore_2    = &LSTORE_2{}
+	lstore_3    = &LSTORE_3{}
+	fstore_0    = &FSTORE_0{}
+	fstore_1    = &FSTORE_1{}
+	fstore_2    = &FSTORE_2{}
+	fstore_3    = &FSTORE_3{}
+	dstore_0    = &DSTORE_0{}
+	dstore_1    = &DSTORE_1{}
+	dstore_2    = &DSTORE_2{}
+	dstore_3    = &DSTORE_3{}
+	astore_0    = &AStore_0{}
+	astore_1    = &AStore_1{}
+	astore_2    = &AStore_2{}
+	astore_3    = &AStore_3{}
+	pop         = &POP{}
+	pop2        = &POP2{}
+	dup         = &DUP{}
+	dup_x1      = &DUP_X1{}
+	dup_x2      = &DUP_X2{}
+	dup2        = &DUP2{}
+	dup2_x1     = &DUP2_X1{}
+	dup2_x2     = &DUP2_X2{}
+	swap        = &SWAP{}
+	iadd        = NewIAdd()
+	ladd        = NewLAdd()
+	fadd        = NewFAdd()
+	dadd        = NewDAdd()
+	isub        = NewISub()
+	lsub        = NewLSub()
+	fsub        = NewFSub()
+	dsub        = NewDSub()
+	imul        = NewIMul()
+	lmul        = NewLMul()
+	fmul        = NewFMul()
+	dmul        = NewDMul()
+	idiv        = NewIDiv()
+	ldiv        = NewLDiv()
+	fdiv        = NewFDiv()
+	ddiv        = NewDDiv()
+	irem        = NewIRem()
+	lrem        = NewLRem()
+	frem        = NewFRem()
+	drem        = NewDRem()
+	ineg        = NewINeg()
+	lneg        = NewLNeg()
+	fneg        = NewFNeg()
+	dneg        = NewDNeg()
+	ishl        = NewIShl()
+	lshl        = NewLShl()
+	ishr        = NewIShr()
+	lshr        = NewLShr()
+	iushr       = NewIUShr()
+	lushr       = NewLUShr()
+	iand        = NewIAnd()
+	land        = NewLAnd()
+	ior         = NewIOr()
+	lor         = NewLOr()
+	ixor        = NewIXor()
+	lxor        = NewLXor()
+	i2l         = NewI2L()
+	i2f         = NewI2F()
+	i2d         = NewI2D()
+	l2i         = NewL2I()
+	l2f         = NewL2F()
+	l2d         = NewL2D()
+	f2i         = NewF2I()
+	f2l         = NewF2L()
+	f2d         = NewF2D()
+	d2i         = NewD2I()
+	d2l         = NewD2L()
+	d2f         = NewD2F()
+	i2b         = NewI2B()
+	i2c         = NewI2C()
+	i2s         = NewI2S()
+	lcmp        = NewLCMP()
+	fcmpl       = NewFCMPL()
+	fcmpg       = NewFCMPG()
+	dcmpl       = NewDCMPL()
+	dcmpg       = NewDCMPG()
+	ireturn     = &Return{}
+	lreturn     = &LReturn{}
+	freturn     = &FReturn{}
+	dreturn     = &DReturn{}
+	areturn     = &AReturn{}
+	_return     = &Return{}
 )
 
 func NewInstruction(opcode byte) base.Instruction {
@@ -421,6 +427,18 @@ func NewInstruction(opcode byte) base.Instruction {
 		return &TableSwitch{}
 	case 0xab:
 		return &LookupSwitch{}
+	case 0xac:
+		return ireturn
+	case 0xad:
+		return lreturn
+	case 0xae:
+		return freturn
+	case 0xaf:
+		return dreturn
+	case 0xb0:
+		return areturn
+	case 0xb1:
+		return _return
 	case 0xb2:
 		return &GetStatic{}
 	case 0xb3:
@@ -433,6 +451,10 @@ func NewInstruction(opcode byte) base.Instruction {
 		return &InvokeVirtual{}
 	case 0xb7:
 		return &InvokeSpecial{}
+	case 0xb8:
+		return &InvokeStatic{}
+	case 0xb9:
+		return &InvokeInterface{}
 	case 0xbb:
 		return &New{}
 	case 0xc0:

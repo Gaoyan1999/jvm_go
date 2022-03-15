@@ -1,7 +1,5 @@
 package heap
 
-import "fmt"
-
 type MethodDescriptorParser struct {
 	d string
 }
@@ -11,7 +9,6 @@ func parseMethodDescriptor(descriptor string) MethodDescriptor {
 	return parser.parse()
 }
 func (parser *MethodDescriptorParser) parse() MethodDescriptor {
-	fmt.Printf("descriptor: %s \n", parser.d)
 	if paramTypes, ok := parser.parseParamTypes(); ok {
 		if returnType, ok := parser.parseReturnType(); ok {
 			return MethodDescriptor{

@@ -7,12 +7,12 @@ https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.5
 */
 type Thread struct {
 	pc    int
-	stack *Stack
+	Stack *Stack
 }
 
 func NewThread() *Thread {
 	return &Thread{
-		stack: newStack(1024),
+		Stack: newStack(1024),
 	}
 }
 func (t *Thread) PC() int {
@@ -23,23 +23,23 @@ func (t *Thread) SetPC(pc int) {
 }
 
 func (t *Thread) PushFrame(frame *Frame) {
-	t.stack.push(frame)
+	t.Stack.push(frame)
 }
 func (t *Thread) PopFrame() *Frame {
-	return t.stack.pop()
+	return t.Stack.pop()
 }
 
 func (t *Thread) TopFrame() *Frame {
-	return t.stack.top()
+	return t.Stack.top()
 }
 
 func (t *Thread) CurrentFrame() *Frame {
-	return t.stack.top()
+	return t.Stack.top()
 }
 func (t *Thread) NewFrame(method *heap.Method) *Frame{
 	return NewFrame(t,method)
 }
 
 func (t *Thread) IsStackEmpty() bool{
-	return t.stack.isEmpty()
+	return t.Stack.isEmpty()
 }
