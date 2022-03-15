@@ -28,9 +28,18 @@ func (t *Thread) PushFrame(frame *Frame) {
 func (t *Thread) PopFrame() *Frame {
 	return t.stack.pop()
 }
+
+func (t *Thread) TopFrame() *Frame {
+	return t.stack.top()
+}
+
 func (t *Thread) CurrentFrame() *Frame {
 	return t.stack.top()
 }
 func (t *Thread) NewFrame(method *heap.Method) *Frame{
 	return NewFrame(t,method)
+}
+
+func (t *Thread) IsStackEmpty() bool{
+	return t.stack.isEmpty()
 }

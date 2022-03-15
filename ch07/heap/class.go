@@ -7,7 +7,7 @@ import (
 
 type Class struct {
 	AccessFlags
-	name              string
+	Name              string
 	superClassName    string
 	interfaceNames    []string
 	constantPool      *ConstantPool
@@ -24,7 +24,7 @@ type Class struct {
 func newClass(cf *classfile.ClassFile) *Class {
 	class := &Class{}
 	class.AccessFlags = AccessFlags(cf.AccessFlags())
-	class.name = cf.ClassName()
+	class.Name = cf.ClassName()
 	class.superClassName = cf.SuperClassName()
 	class.interfaceNames = cf.InterfaceNames()
 	class.constantPool = newConstantPool(class, cf.ConstantPool())
@@ -39,18 +39,18 @@ func (class *Class) NewObject() *Object {
 
 func newObject(class *Class) *Object {
 	return &Object{
-		class:  class,
+		Class:  class,
 		fields: newSlots(class.instanceSlotCount),
 	}
 }
 
 func (class *Class) isAccessibleTo(other *Class) bool {
-	return class.IsPublic() || class.getPackageName() == other.getPackageName()
+	return class.IsPublic() || class.GetPackageName() == other.GetPackageName()
 }
 
-func (class *Class) getPackageName() string {
-	if i := strings.LastIndex(class.name, "/"); i >= 0 {
-		return class.name[:i]
+func (class *Class) GetPackageName() string {
+	if i := strings.LastIndex(class.Name, "/"); i >= 0 {
+		return class.Name[:i]
 	}
 	return ""
 }
@@ -60,6 +60,9 @@ func (class *Class) ConstantPool() *ConstantPool {
 }
 func (class *Class) StaticFieldSlots() Slots {
 	return class.staticFieldSlots
+}
+func (class *Class) SuperClass() *Class {
+	return class.superClass
 }
 
 func (class *Class) GetMainMethod() *Method {

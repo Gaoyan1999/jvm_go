@@ -1,7 +1,7 @@
 package heap
 
 type Object struct {
-	class  *Class
+	Class  *Class
 	fields Slots
 }
 
@@ -10,5 +10,5 @@ func (ref *Object) Fields() Slots {
 }
 
 func (ref *Object) IsInstanceOf(class *Class) bool {
-	return class.isAssignableFrom(ref.class)
+	return class.isAssignableFrom(ref.Class)
 }

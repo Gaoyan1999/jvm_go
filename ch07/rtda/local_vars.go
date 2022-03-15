@@ -67,6 +67,9 @@ func (vars LocalVars) GetRef(index uint) *heap.Object {
 	return vars[index].ref
 }
 
-func  (lv LocalVars)GetLocalVar(index uint) Slot  {
-	return lv[index]
+func (vars LocalVars) GetLocalVar(index uint) Slot {
+	return vars[index]
+}
+func (vars LocalVars) SetLocalVar(index uint, slot Slot) {
+	vars[index] = slot
 }

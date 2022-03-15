@@ -50,7 +50,7 @@ func (classLoader *ClassLoader) defineClass(data []byte) *Class {
 	class.loader = classLoader
 	resolveSuperClass(class)
 	resolveInterfaces(class)
-	classLoader.classMap[class.name] = class
+	classLoader.classMap[class.Name] = class
 	return class
 }
 
@@ -63,7 +63,7 @@ func parseClass(data []byte) *Class {
 }
 
 func resolveSuperClass(class *Class) {
-	if class.name != "java/lang/Object" {
+	if class.Name != "java/lang/Object" {
 		class.superClass = class.loader.LoadClass(class.superClassName)
 	}
 }
