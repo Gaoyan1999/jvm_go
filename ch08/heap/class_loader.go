@@ -2,8 +2,8 @@ package heap
 
 import (
 	"fmt"
-	"jvmgo/ch07/classfile"
-	"jvmgo/ch07/classpath"
+	"jvmgo/ch08/classfile"
+	"jvmgo/ch08/classpath"
 )
 
 type ClassLoader struct {
@@ -24,6 +24,9 @@ func (classLoader *ClassLoader) LoadClass(name string) *Class {
 	if class, ok := classLoader.classMap[name]; ok {
 		return class
 	}
+	if name[0] == '[' {
+		return classLoader.loadArrayClass(name)
+	}
 	return classLoader.loadNonArrayClass(name)
 }
 
@@ -38,6 +41,21 @@ func (classLoader *ClassLoader) loadNonArrayClass(name string) *Class {
 	if classLoader.verboseFlag {
 		fmt.Printf("[Loaded %s from %s]\n", name, entry)
 	}
+	return class
+}
+
+func (classLoader *ClassLoader) loadArrayClass(name string) *Class {
+	class := &Class{
+		AccessFlags: ACC_PUBLIC, //TODO
+		Name:        name,
+		InitStarted: true,
+		superClass:  classLoader.LoadClass("java/lang/Object"),
+		interfaces: []*Class{
+			classLoader.LoadClass("java/lang/Cloneable"),
+			classLoader.LoadClass("java/io/Serializable"),
+		},
+	}
+	classLoader.classMap[name] = class
 	return class
 }
 

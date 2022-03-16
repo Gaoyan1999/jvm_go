@@ -5,10 +5,10 @@ type Object struct {
 	data interface{}
 }
 
-func (ref *Object) Fields() Slots {
-	return ref.data.(Slots)
+func (object *Object) Fields() Slots {
+	return object.data.(Slots)
 }
 
-func (ref *Object) IsInstanceOf(class *Class) bool {
-	return class.isAssignableFrom(ref.Class)
+func (object *Object) IsInstanceOf(class *Class) bool {
+	return class.isAssignableFrom(object.Class)
 }

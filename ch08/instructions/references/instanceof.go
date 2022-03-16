@@ -1,9 +1,9 @@
 package references
 
 import (
-	"jvmgo/ch07/instructions/base"
-	"jvmgo/ch07/heap"
-	"jvmgo/ch07/rtda"
+	"jvmgo/ch08/instructions/base"
+	"jvmgo/ch08/heap"
+	"jvmgo/ch08/rtda"
 )
 
 type InstanceOf struct{ base.Index16Instruction }

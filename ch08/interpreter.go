@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"jvmgo/ch07/heap"
-	"jvmgo/ch07/instructions"
-	"jvmgo/ch07/instructions/base"
-	"jvmgo/ch07/rtda"
+	"jvmgo/ch08/heap"
+	"jvmgo/ch08/instructions"
+	"jvmgo/ch08/instructions/base"
+	"jvmgo/ch08/rtda"
 )
 
 func interpret(method *heap.Method, logInst bool) {

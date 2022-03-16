@@ -2,8 +2,8 @@ package base
 
 import (
 	"fmt"
-	"jvmgo/ch07/heap"
-	"jvmgo/ch07/rtda"
+	"jvmgo/ch08/heap"
+	"jvmgo/ch08/rtda"
 )
 
 func InvokeMethod(frame *rtda.Frame,method *heap.Method){

@@ -1,7 +1,7 @@
 package heap
 
 import (
-	"jvmgo/ch07/classfile"
+	"jvmgo/ch08/classfile"
 	"strings"
 )
 
@@ -64,6 +64,10 @@ func (class *Class) StaticFieldSlots() Slots {
 }
 func (class *Class) SuperClass() *Class {
 	return class.superClass
+}
+
+func (class *Class) ClassLoader() *ClassLoader {
+	return class.loader
 }
 
 func (class *Class) GetMainMethod() *Method {

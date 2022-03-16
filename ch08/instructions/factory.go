@@ -2,17 +2,17 @@ package instructions
 
 import (
 	"fmt"
-	"jvmgo/ch07/instructions/base"
+	"jvmgo/ch08/instructions/base"
 )
-import . "jvmgo/ch07/instructions/const"
-import . "jvmgo/ch07/instructions/load"
-import . "jvmgo/ch07/instructions/store"
-import . "jvmgo/ch07/instructions/stack"
-import . "jvmgo/ch07/instructions/math"
-import . "jvmgo/ch07/instructions/conversions"
-import . "jvmgo/ch07/instructions/comparisions"
-import . "jvmgo/ch07/instructions/control"
-import . "jvmgo/ch07/instructions/references"
+import . "jvmgo/ch08/instructions/const"
+import . "jvmgo/ch08/instructions/load"
+import . "jvmgo/ch08/instructions/store"
+import . "jvmgo/ch08/instructions/stack"
+import . "jvmgo/ch08/instructions/math"
+import . "jvmgo/ch08/instructions/conversions"
+import . "jvmgo/ch08/instructions/comparisions"
+import . "jvmgo/ch08/instructions/control"
+import . "jvmgo/ch08/instructions/references"
 
 var (
 	nop         = &NOP{}

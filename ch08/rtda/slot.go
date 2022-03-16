@@ -1,6 +1,6 @@
 package rtda
 
-import "jvmgo/ch07/heap"
+import "jvmgo/ch08/heap"
 
 type Slot struct {
 	num int32

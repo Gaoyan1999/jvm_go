@@ -1,8 +1,8 @@
 package base
 
 import (
-	"jvmgo/ch07/heap"
-	"jvmgo/ch07/rtda"
+	"jvmgo/ch08/heap"
+	"jvmgo/ch08/rtda"
 )
 
 func InitClass(thread *rtda.Thread,class *heap.Class){

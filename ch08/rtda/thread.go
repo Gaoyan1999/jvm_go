@@ -1,6 +1,6 @@
 package rtda
 
-import "jvmgo/ch07/heap"
+import "jvmgo/ch08/heap"
 
 /**
 https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.5

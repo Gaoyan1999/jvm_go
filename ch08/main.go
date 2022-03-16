@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"jvmgo/ch07/classpath"
-	"jvmgo/ch07/heap"
+	"jvmgo/ch08/classpath"
+	"jvmgo/ch08/heap"
 	"strings"
 )
 

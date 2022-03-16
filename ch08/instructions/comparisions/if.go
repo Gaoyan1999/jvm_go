@@ -1,8 +1,8 @@
 package comparisions
 
 import (
-	"jvmgo/ch07/instructions/base"
-	"jvmgo/ch07/rtda"
+	"jvmgo/ch08/instructions/base"
+	"jvmgo/ch08/rtda"
 )
 
 func NewIfEQ() *IfCmp { return &IfCmp{cmpFn: eq} }
