@@ -1,6 +1,7 @@
 package heap
 
 func (class *Class) isAssignableFrom(other *Class) bool {
+	// Todo : p166
 	s, t := other, class
 	if s == t {
 		return true

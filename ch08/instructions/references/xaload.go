@@ -15,30 +15,34 @@ func (instr *XALoad) Execute(frame *rtda.Frame) {
 	index := frame.PopInt()
 	arrRef := frame.PopRef()
 	checkNotNil(arrRef)
-	refs := arrRef.Refs()
-	checkIndex(len(refs),index)
-
-
+	//checkIndex(len(arrRef),index)
 	switch instr.atype {
 	case heap.AT_BOOLEAN:
-		frame.PushInt(int32(arrRef.GetBytes()[index]))
+		frame.PushInt(int32(arrRef.Bytes()[index]))
 	case heap.AT_CHAR:
-		frame.PushInt(int32(arrRef.GetChars()[index]))
+		frame.PushInt(int32(arrRef.Chars()[index]))
 	case heap.AT_SHORT:
-		frame.PushInt(int32(arrRef.GetShorts()[index]))
+		frame.PushInt(int32(arrRef.Shorts()[index]))
 	case heap.AT_INT:
-		frame.PushInt(arrRef.GetInts()[index])
+		frame.PushInt(arrRef.Ints()[index])
 	case heap.AT_LONG:
-		frame.PushLong(arrRef.GetLongs()[index])
+		frame.PushLong(arrRef.Longs()[index])
 	case heap.AT_FLOAT:
-		frame.PushFloat(arrRef.GetFloats()[index])
+		frame.PushFloat(arrRef.Floats()[index])
 	case heap.AT_DOUBLE:
-		frame.PushDouble(arrRef.GetDoubles()[index])
+		frame.PushDouble(arrRef.Doubles()[index])
 	default:
-		frame.PushRef(arrRef.GetRefs()[index])
+		frame.PushRef(arrRef.Refs()[index])
 	}
 }
-
+func NewIALoad() *XALoad { return &XALoad{atype: heap.AT_INT} }
+func NewLALoad() *XALoad { return &XALoad{atype: heap.AT_LONG} }
+func NewFALoad() *XALoad { return &XALoad{atype: heap.AT_FLOAT} }
+func NewDALoad() *XALoad { return &XALoad{atype: heap.AT_DOUBLE} }
+func NewAALoad() *XALoad { return &XALoad{atype: 0} }
+func NewBALoad() *XALoad { return &XALoad{atype: heap.AT_BYTE} }
+func NewCALoad() *XALoad { return &XALoad{atype: heap.AT_CHAR} }
+func NewSALoad() *XALoad { return &XALoad{atype: heap.AT_SHORT} }
 
 
 
