@@ -40,8 +40,8 @@ func (class *Class) NewObject() *Object {
 
 func newObject(class *Class) *Object {
 	return &Object{
-		Class:  class,
-		data: newSlots(class.instanceSlotCount),
+		Class: class,
+		data:  newSlots(class.instanceSlotCount),
 	}
 }
 
@@ -90,8 +90,19 @@ func (class *Class) GetClinitMethod() *Method {
 	return class.getStaticMethod("<clinit>", "()V")
 }
 
-func (class *Class) ArrayClass() *Class  {
+func (class *Class) ArrayClass() *Class {
 	arrayClassName := getArrayClassName(class.Name)
 	return class.loader.LoadClass(arrayClassName)
 
+}
+func (class *Class) getField(name, descriptor string, isStatic bool) *Field {
+	for c := class; c != nil; c = c.superClass {
+		for _, field := range c.fields {
+			if field.IsStatic() == isStatic &&
+				field.name == name && field.descriptor == descriptor {
+				return field
+			}
+		}
+	}
+	return nil
 }

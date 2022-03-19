@@ -173,6 +173,10 @@ func initStaticFinalVar(class *Class, field *Field) {
 			val := constantPool.GetConstant(cpIndex).(float64)
 			staticSlots.SetDouble(slotId, val)
 		case "Ljava/lang/String;":
+			goStr := constantPool.GetConstant(cpIndex).(string)
+			jString := JString(class.loader, goStr)
+			staticSlots.SetRef(slotId,jString)
+		default:
 			panic("TODO")
 		}
 

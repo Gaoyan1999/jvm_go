@@ -193,8 +193,8 @@ func NewInstruction(opcode byte) base.Instruction {
 	//	return NewLoad(false)
 	//case 0x18:
 	//	return NewLoad(true)
-	//case 0x19:
-	//	return NewLoad(false)
+	case 0x19:
+		return &ALoad{}
 	case 0x0a:
 		return lconst_1
 	case 0x0b:
